@@ -1,0 +1,9 @@
+#mugshot-bot form {
+  float: left;
+  width: 50%;
+}
+
+#mugshot-bot #image-preview {
+  float: left;
+  width: 50%;
+}
