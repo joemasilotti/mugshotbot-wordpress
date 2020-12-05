@@ -114,18 +114,9 @@ class Mugshot_Bot_Plugin {
         'pro' => true,
         'type' => 'select',
         'values' => [
-          [
-            'label' => 'Default',
-            'value' => 'default',
-          ],
-          [
-            'label' => 'Bold',
-            'value' => 'bold',
-          ],
-          [
-            'label' => 'Two Up',
-            'value' => 'two_up',
-          ],
+          'Default',
+          'Bold',
+          'Two Up',
         ],
       ],
       'image' => [
@@ -141,14 +132,8 @@ class Mugshot_Bot_Plugin {
         'label' => 'Color Scheme',
         'type' => 'select',
         'values' => [
-          [
-            'label' => 'Light',
-            'value' => 'light',
-          ],
-          [
-            'label' => 'Dark',
-            'value' => 'dark',
-          ],
+          'Light',
+          'Dark',
         ],
       ],
       'color' => [
@@ -156,42 +141,15 @@ class Mugshot_Bot_Plugin {
         'label' => 'Color',
         'type' => 'select',
         'values' => [
-          [
-            'label' => 'Red',
-            'value' => 'red',
-          ],
-          [
-            'label' => 'Orange',
-            'value' => 'orange',
-          ],
-          [
-            'label' => 'Yellow',
-            'value' => 'yellow',
-          ],
-          [
-            'label' => 'Green',
-            'value' => 'green',
-          ],
-          [
-            'label' => 'Teal',
-            'value' => 'teal',
-          ],
-          [
-            'label' => 'Blue',
-            'value' => 'blue',
-          ],
-          [
-            'label' => 'Indigo',
-            'value' => 'indigo',
-          ],
-          [
-            'label' => 'Purple',
-            'value' => 'purple',
-          ],
-          [
-            'label' => 'Pink',
-            'value' => 'pink',
-          ],
+          'Red',
+          'Orange',
+          'Yellow',
+          'Green',
+          'Teal',
+          'Blue',
+          'Indigo',
+          'Purple',
+          'Pink',
         ],
       ],
       'pattern' => [
@@ -199,42 +157,15 @@ class Mugshot_Bot_Plugin {
         'label' => 'Background Pattern',
         'type' => 'select',
         'values' => [
-          [
-            'label' => 'None',
-            'value' => 'none',
-          ],
-          [
-            'label' => 'Hideout',
-            'value' => 'hideout',
-          ],
-          [
-            'label' => 'Bubbles',
-            'value' => 'bubbles',
-          ],
-          [
-            'label' => 'Texture',
-            'value' => 'texture',
-          ],
-          [
-            'label' => 'Diagonal Lines',
-            'value' => 'diagonal_lines',
-          ],
-          [
-            'label' => 'Charlie Brown',
-            'value' => 'charlie_brown',
-          ],
-          [
-            'label' => 'Lines In Motion',
-            'value' => 'lines_in_motion',
-          ],
-          [
-            'label' => 'Topography',
-            'value' => 'topography',
-          ],
-          [
-            'label' => 'Bank Note',
-            'value' => 'bank_note',
-          ],
+          'None',
+          'Hideout',
+          'Bubbles',
+          'Texture',
+          'Diagonal Lines',
+          'Charlie Brown',
+          'Lines In Motion',
+          'Topography',
+          'Bank Note',
         ],
       ],
       'hide_watermark' => [

@@ -16,11 +16,12 @@
     <?php if ($setting['type'] == 'select') : ?>
       <select name="mugshot_bot_settings[<?php echo $index; ?>]">
         <?php foreach ($setting['values'] as $v) : ?>
+          <?php $value = strtolower(str_replace(' ', '_', $v)); ?>
           <option
-            value="<?php echo $v['value']; ?>"
-            <?php echo($mugshot_bot_settings[$index] == $v['value'] ? ' selected' : ''); ?>
+            value="<?php echo $value ?>"
+            <?php echo($mugshot_bot_settings[$index] == $value ? ' selected' : ''); ?>
           >
-            <?php _e($v['label'], $this->plugin_name); ?>
+            <?php echo($v); ?>
           </option>
         <?php endforeach; ?>
       </select>
