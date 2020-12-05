@@ -6,9 +6,7 @@ Mugshot Bot automates link preview images for your blog – and now directly via
 
 1. Download the latest [release](https://github.com/joemasilotti/mugshotbot-wordpress/releases)
 1. Upload the .zip to your WordPress site
-    1. Plugins
-    1. Add New
-    1. Upload Plugin
+    * Admin -> Plugins -> Add New -> Upload Plugin
     
 ## MVP
 
