@@ -6,7 +6,7 @@
     <img class="w-full h-auto" src="<?php echo $mugshot->url(); ?>">
     <h2 class="text-center uppercase">Preview image</h2>
     <p class="description text-center">
-      The content will automatically be updated to match each blog post.
+      The content will automatically be updated to match each page.
     </p>
   </div>
 
@@ -14,7 +14,8 @@
     <h1>Mugshot Bot</h1>
 
     <p class="description max-w-lg">
-      Customize the link preview image for your WordPress site.
+      Add a link preview image to each page of your WordPress site.
+      The content will be automatically updated to match each page.
     </p>
 
     <p class="description">
@@ -32,6 +33,17 @@
       <table class="form-table">
         <tbody>
 
+        </tbody>
+      </table>
+
+      <hr />
+
+      <h2>Customizations</h2>
+      <p class="description max-w-lg">
+        Customize the appearance of the link preview images on your site.
+      </p>
+      <table class="form-table">
+        <tbody>
           <?php foreach ($free as $index => $setting) : ?>
             <?php include 'setting.php' ?>
           <?php endforeach; ?>
