@@ -71,27 +71,19 @@ class Mugshot_Bot_Plugin {
     include 'inc/settings.php';
   }
 
-  public function default_settings() {
-    if (!get_option('mugshot_bot_settings')) {
-      $settings = [
-        'theme' => 'default',
-        'mode' => 'light',
-        'color' => 'red',
-        'pattern' => 'none',
-      ];
+  public function block_editor_assets() {
+    wp_enqueue_script('sidebar-js');
+  }
 
-      update_option('mugshot_bot_settings', $settings);
-    }
+  public function init() {
+    $this->set_default_settings();
+    $this->register_sidebar();
+    $this->register_post_meta();
   }
 
   public function head() {
-    global $wp;
-
-    $url = home_url($wp->request);
-    $mugshot = new Mugshot($url);
-    $mugshot_url = $mugshot->url();
-
-    echo "<meta property=\"og:image\" content=\"$mugshot_url\">";
+    $this->add_mugshot_image_tag();
+    $this->add_open_graph_image_tag();
   }
 
   public function remove_yoast($filter) {
@@ -110,12 +102,48 @@ class Mugshot_Bot_Plugin {
   private function add_actions() {
     add_action('admin_enqueue_scripts', [$this, 'scripts'], 1);
     add_action('admin_menu', [$this, 'menu']);
-    add_action('init', [$this, 'default_settings'], 1);
+    add_action('enqueue_block_editor_assets', [$this, 'block_editor_assets']);
+    add_action('init', [$this, 'init'], 1);
     add_action('wp_head', [$this, 'head'], 1);
   }
 
   private function add_filters() {
     add_filter('wpseo_frontend_presenter_classes', [$this, 'remove_yoast']);
+  }
+
+  private function set_default_settings() {
+    if (!get_option('mugshot_bot_settings')) {
+      $settings = [
+        'theme' => 'default',
+        'mode' => 'light',
+        'color' => 'red',
+        'pattern' => 'none',
+      ];
+
+      update_option('mugshot_bot_settings', $settings);
+    }
+  }
+
+  private function register_sidebar() {
+    wp_register_script(
+      'sidebar-js',
+      plugins_url('inc/sidebar.js', __FILE__),
+      array(
+        'wp-components',
+        'wp-data',
+        'wp-edit-post',
+        'wp-element',
+        'wp-plugins',
+      )
+    );
+  }
+
+  private function register_post_meta() {
+    register_post_meta('post', 'mugshot_bot_image_url', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'type' => 'string',
+    ));
   }
 
   private function clean_post() {
@@ -125,6 +153,22 @@ class Mugshot_Bot_Plugin {
       $new_settings['custom_color'] = null;
     }
     return $new_settings;
+  }
+
+  private function add_mugshot_image_tag() {
+    $image_url = get_post_meta(get_the_ID(), 'mugshot_bot_image_url', true);
+    if (is_single() && !empty($image_url)) {
+      echo "<meta property=\"mugshot:image\" content=\"$image_url\">";
+    }
+  }
+
+  private function add_open_graph_image_tag() {
+    global $wp;
+    $url = home_url($wp->request);
+    $mugshot = new Mugshot($url);
+    $mugshot_url = $mugshot->url();
+
+    echo "<meta property=\"og:image\" content=\"$mugshot_url\">";
   }
 }
 
