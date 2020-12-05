@@ -5,13 +5,16 @@
   <div class="p-8">
     <img class="w-full h-auto" src="<?php echo $mugshot->url(); ?>">
     <h2 class="text-center uppercase">Preview image</h2>
+    <p class="description text-center">
+      The content will automatically be updated to match each blog post.
+    </p>
   </div>
 
   <div class="lg:order-first">
     <h1>Mugshot Bot</h1>
 
-    <p class="description">
-      Customize the link preview image for every page on your WordPress site.
+    <p class="description max-w-lg">
+      Customize the link preview image for your WordPress site.
     </p>
 
     <p class="description">
@@ -37,7 +40,7 @@
         <hr />
 
         <h2>Pro features</h2>
-        <p class="description" style="max-width: 32rem;">
+        <p class="description max-w-lg">
           <b>
             These features only work with a paid subscription to Mugshot Bot.
           </b>

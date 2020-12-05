@@ -127,7 +127,7 @@ class Mugshot_Bot_Plugin {
         ],
       ],
       'image' => [
-        'description' => 'Upload an image and paste in the 8 character code.',
+        'description' => 'Use with the "Two Up" theme. Upload an image and paste in the 8 character code.',
         'label' => 'Image',
         'link' => 'Upload image',
         'pro' => true,

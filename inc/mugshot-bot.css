@@ -10,6 +10,10 @@
   height: auto;
 }
 
+.max-w-lg {
+  max-width: 32rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
