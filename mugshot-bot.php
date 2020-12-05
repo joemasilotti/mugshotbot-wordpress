@@ -30,9 +30,9 @@ class Mugshot_Bot_Plugin {
     $this->plugin_name = trim($meta['Name'], "'");
     $this->plugin_version = $meta['Version'];
 
-    $this->settings = $this->buildSettings();
-    $this->addActions();
-    $this->addFilters();
+    $this->settings = $this->build_settings();
+    $this->add_actions();
+    $this->add_filters();
   }
 
   public function menu() {
@@ -106,7 +106,7 @@ class Mugshot_Bot_Plugin {
     return $filter;
   }
 
-  private function buildSettings() {
+  private function build_settings() {
     return [
       'theme' => [
         'description' => 'The overall appearance and layout of your link preview.',
@@ -247,7 +247,7 @@ class Mugshot_Bot_Plugin {
     ];
   }
 
-  private function addActions() {
+  private function add_actions() {
     add_action('admin_menu', [$this, 'menu']);
     add_action('admin_enqueue_scripts', [$this, 'scripts'], 1);
 
@@ -255,7 +255,7 @@ class Mugshot_Bot_Plugin {
     add_action('wp_head', [$this, 'head'], 1);
   }
 
-  private function addFilters() {
+  private function add_filters() {
     add_filter('wpseo_frontend_presenter_classes', [$this, 'remove_yoast']);
   }
 }
