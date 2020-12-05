@@ -9,6 +9,8 @@
  * Text Domain: 'mugshot-bot'
  */
 
+require_once(__DIR__.'/inc/mugshot.php');
+
 class Mugshot_Bot_Plugin {
   private static $instance;
 
@@ -84,9 +86,9 @@ class Mugshot_Bot_Plugin {
 
     $url = home_url($wp->request);
     $mugshot = new Mugshot($url);
-    $mugshot_url = $url->url();
+    $mugshot_url = $mugshot->url();
 
-    echo "<meta property=\"og:image\" content=\"$url\">";
+    echo "<meta property=\"og:image\" content=\"$mugshot_url\">";
   }
 
   public function remove_yoast($filter) {
@@ -105,8 +107,9 @@ class Mugshot_Bot_Plugin {
   private function buildSettings() {
     return [
       'theme' => [
-        'label' => 'Theme',
         'description' => 'The overall appearance and layout of your link preview.',
+        'label' => 'Theme',
+        'pro' => true,
         'type' => 'select',
         'values' => [
           [
@@ -127,12 +130,13 @@ class Mugshot_Bot_Plugin {
         'description' => 'Upload an image and paste in the 8 character code.',
         'label' => 'Image',
         'link' => 'Upload image',
+        'pro' => true,
         'type' => 'text',
         'url' => 'https://mugshotbot.com/images',
       ],
       'mode' => [
-        'label' => 'Color Scheme',
         'description' => 'Dark mode inverts the colors of light mode.',
+        'label' => 'Color Scheme',
         'type' => 'select',
         'values' => [
           [
@@ -146,8 +150,8 @@ class Mugshot_Bot_Plugin {
         ],
       ],
       'color' => [
-        'label' => 'Color',
         'description' => 'Accent border, website name, and background pattern tint.',
+        'label' => 'Color',
         'type' => 'select',
         'values' => [
           [
@@ -189,8 +193,8 @@ class Mugshot_Bot_Plugin {
         ],
       ],
       'pattern' => [
-        'label' => 'Background Pattern',
         'description' => 'Will be tinted with the selected color.',
+        'label' => 'Background Pattern',
         'type' => 'select',
         'values' => [
           [
@@ -232,8 +236,10 @@ class Mugshot_Bot_Plugin {
         ],
       ],
       'hide_watermark' => [
-        'label' => 'Hide Mugshot Bot branding',
         'description' => 'Hides the Mugshot Bot branding in the bottom right.',
+        'helper' => 'Hide branding',
+        'label' => 'Mugshot Bot branding',
+        'pro' => true,
         'type' => 'checkbox',
       ],
     ];

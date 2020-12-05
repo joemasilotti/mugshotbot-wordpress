@@ -10,46 +10,55 @@
   <div class="lg:order-first">
     <h1>Mugshot Bot</h1>
 
-    <form method="post">
+    <p class="description">
+      Customize the link preview image for every page on your WordPress site.
+    </p>
+
+    <p class="description">
+      Need help?
+      <a href="mailto:joe@masilotti.com">Send me a message</a>
+      and we can figure it out together!
+    </p>
+
+    <form method="post" class="mt-2">
       <?php wp_nonce_field('mugshot_bot_settings') ?>
+
+      <?php $pro = array_filter($this->settings, function($s) { return isset($s['pro']); }); ?>
+      <?php $free = array_diff_key($this->settings, $pro); ?>
 
       <table class="form-table">
         <tbody>
-          <?php foreach ($this->settings as $index => $setting) : ?>
-            <tr>
-              <th scope="row">
-                <span class="block mb-2"><?php echo $setting['label']; ?></span>
 
-                <?php if (isset($setting['link']) && isset($setting['url'])) : ?>
-                  <a href="<?php echo $setting['url']; ?>" class="button button-secondary" target="_blank"><?php echo $setting['link']; ?></a>
-                <?php endif; ?>
-                </th>
-              <td >
-                <?php if ($setting['type'] == 'select') : ?>
-                  <select name="mugshot_bot_settings[<?php echo $index; ?>]">
-                    <?php foreach ($setting['values'] as $v) : ?>
-                      <option
-                        value="<?php echo $v['value']; ?>"
-                        <?php echo($mugshot_bot_settings[$index] == $v['value'] ? ' selected' : ''); ?>
-                      >
-                        <?php _e($v['label'], $this->plugin_name); ?>
-                      </option>
-                    <?php endforeach; ?>
-                  </select>
-                <?php elseif ($setting['type'] == 'checkbox') : ?>
-                  <?php $checked = isset($mugshot_bot_settings[$index]); ?>
-                  <input type="checkbox" value="1" name="mugshot_bot_settings[<?php echo $index; ?>]" <?php echo $checked ? 'checked' : ''; ?> >
-                <?php else : ?>
-                  <input type="text" class="regular-text ltr" id="mugshot_bot_settings[<?php echo $index; ?>]" name="mugshot_bot_settings[<?php echo $index; ?>]" value="<?php echo(isset($mugshot_bot_settings[$index]) ? $mugshot_bot_settings[$index] : ''); ?>">
-                <?php endif; ?>
-                <p class="description"><?php echo $setting['description']; ?>
-              </td>
-            </tr>
+          <?php foreach ($free as $index => $setting) : ?>
+            <?php include 'setting.php' ?>
+          <?php endforeach; ?>
+        </table>
+
+        <hr />
+
+        <h2>Pro features</h2>
+        <p class="description" style="max-width: 32rem;">
+          <b>
+            These features only work with a paid subscription to Mugshot Bot.
+          </b>
+          <a href="https://mugshotbot.com/pricing" target="_blank">Sign up for an account</a>
+          then
+          <a href="https://mugshotbot.com/customize" target="_blank">customize</a>
+          one image for this website to enable Pro features.
+        </p>
+        <table class="form-table">
+          <?php foreach ($pro as $index => $setting) : ?>
+            <?php include 'setting.php' ?>
           <?php endforeach; ?>
         </tbody>
       </table>
 
-      <input name="submit" class="button button-primary" type="submit" value="<?php esc_attr_e('Save Settings'); ?>" />
+      <input
+        class="button button-primary"
+        name="submit"
+        type="submit"
+        value="<?php esc_attr_e('Save Settings'); ?>"
+      />
     </form>
   </div>
 </div>
