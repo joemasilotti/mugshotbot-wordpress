@@ -36,17 +36,6 @@ class Mugshot_Bot_Plugin {
     $this->add_filters();
   }
 
-  public function menu() {
-    add_submenu_page(
-      'options-general.php',
-      'Mugshot Bot',
-      'Mugshot Bot',
-      'manage_options',
-      $this->plugin_name,
-      [$this, 'settings']
-    );
-  }
-
   public function scripts() {
     $version = wp_get_environment_type() == 'production' ?
       $this->plugin_version : time();
@@ -60,17 +49,15 @@ class Mugshot_Bot_Plugin {
     wp_enqueue_style('mugshot-bot-css');
   }
 
-  public function default_settings() {
-    if (!get_option('mugshot_bot_settings')) {
-      $settings = [
-        'theme' => 'default',
-        'mode' => 'light',
-        'color' => 'red',
-        'pattern' => 'none',
-      ];
-
-      update_option('mugshot_bot_settings', $settings);
-    }
+  public function menu() {
+    add_submenu_page(
+      'options-general.php',
+      'Mugshot Bot',
+      'Mugshot Bot',
+      'manage_options',
+      $this->plugin_name,
+      [$this, 'settings']
+    );
   }
 
   public function settings() {
@@ -84,13 +71,17 @@ class Mugshot_Bot_Plugin {
     include 'inc/settings.php';
   }
 
-  private function clean_post() {
-    $settings = get_option('mugshot_bot_settings');
-    $new_settings = $_POST['mugshot_bot_settings'];
-    if ($settings['color'] != $new_settings['color']) {
-      $new_settings['custom_color'] = null;
+  public function default_settings() {
+    if (!get_option('mugshot_bot_settings')) {
+      $settings = [
+        'theme' => 'default',
+        'mode' => 'light',
+        'color' => 'red',
+        'pattern' => 'none',
+      ];
+
+      update_option('mugshot_bot_settings', $settings);
     }
-    return $new_settings;
   }
 
   public function head() {
@@ -117,15 +108,23 @@ class Mugshot_Bot_Plugin {
   }
 
   private function add_actions() {
-    add_action('admin_menu', [$this, 'menu']);
     add_action('admin_enqueue_scripts', [$this, 'scripts'], 1);
-
+    add_action('admin_menu', [$this, 'menu']);
     add_action('init', [$this, 'default_settings'], 1);
     add_action('wp_head', [$this, 'head'], 1);
   }
 
   private function add_filters() {
     add_filter('wpseo_frontend_presenter_classes', [$this, 'remove_yoast']);
+  }
+
+  private function clean_post() {
+    $settings = get_option('mugshot_bot_settings');
+    $new_settings = $_POST['mugshot_bot_settings'];
+    if ($settings['color'] != $new_settings['color']) {
+      $new_settings['custom_color'] = null;
+    }
+    return $new_settings;
   }
 }
 
