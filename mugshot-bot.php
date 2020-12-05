@@ -5,7 +5,7 @@
  * Description: Automated link previews for WordPress sites.
  * Author: Joe Masilotti
  * Author URI: https://masilotti.com
- * Version: 0.0.5
+ * Version: 0.1
  * Text Domain: 'mugshot-bot'
  */
 
@@ -43,11 +43,14 @@ class Mugshot_Bot_Plugin {
   }
 
   public function scripts() {
+    $version = wp_get_environment_type() == 'production' ?
+      $this->plugin_version : time();
+
     wp_register_style(
       'mugshot-bot-css',
       plugins_url('mugshot-bot/inc/mugshot-bot.css'),
       null,
-      $this->plugin_version
+      $version
     );
     wp_enqueue_style('mugshot-bot-css');
   }
@@ -80,17 +83,10 @@ class Mugshot_Bot_Plugin {
     global $wp;
 
     $url = home_url($wp->request);
-    $mugshot_bot_settings = get_option('mugshot_bot_settings');
+    $mugshot = new Mugshot($url);
+    $mugshot_url = $url->url();
 
-    $mugshot_bot_url = add_query_arg('url', $url, 'http://localhost:3000/m');
-    $mugshot_bot_url = add_query_arg('theme', $mugshot_bot_settings['theme'], $mugshot_bot_url);
-    $mugshot_bot_url = add_query_arg('image', $mugshot_bot_settings['image'], $mugshot_bot_url);
-    $mugshot_bot_url = add_query_arg('mode', $mugshot_bot_settings['mode'], $mugshot_bot_url);
-    $mugshot_bot_url = add_query_arg('color', $mugshot_bot_settings['color'], $mugshot_bot_url);
-    $mugshot_bot_url = add_query_arg('pattern', $mugshot_bot_settings['pattern'], $mugshot_bot_url);
-    $mugshot_bot_url = add_query_arg('hide_watermark', 'true', $mugshot_bot_url); ?>
-        <meta property="og:image" content="<?php echo $mugshot_bot_url; ?>">
-<?php
+    echo "<meta property=\"og:image\" content=\"$url\">";
   }
 
   public function remove_yoast($filter) {
@@ -111,6 +107,7 @@ class Mugshot_Bot_Plugin {
       'theme' => [
         'label' => 'Theme',
         'description' => 'The overall appearance and layout of your link preview.',
+        'type' => 'select',
         'values' => [
           [
             'label' => 'Default',
@@ -127,12 +124,16 @@ class Mugshot_Bot_Plugin {
         ],
       ],
       'image' => [
+        'description' => 'Upload an image and paste in the 8 character code.',
         'label' => 'Image',
-        'description' => 'The generated code is used to embed your uploaded image.',
+        'link' => 'Upload image',
+        'type' => 'text',
+        'url' => 'https://mugshotbot.com/images',
       ],
       'mode' => [
         'label' => 'Color Scheme',
         'description' => 'Dark mode inverts the colors of light mode.',
+        'type' => 'select',
         'values' => [
           [
             'label' => 'Light',
@@ -147,6 +148,7 @@ class Mugshot_Bot_Plugin {
       'color' => [
         'label' => 'Color',
         'description' => 'Accent border, website name, and background pattern tint.',
+        'type' => 'select',
         'values' => [
           [
             'label' => 'Red',
@@ -189,6 +191,7 @@ class Mugshot_Bot_Plugin {
       'pattern' => [
         'label' => 'Background Pattern',
         'description' => 'Will be tinted with the selected color.',
+        'type' => 'select',
         'values' => [
           [
             'label' => 'None',
@@ -227,6 +230,11 @@ class Mugshot_Bot_Plugin {
             'value' => 'bank_note',
           ],
         ],
+      ],
+      'hide_watermark' => [
+        'label' => 'Hide Mugshot Bot branding',
+        'description' => 'Hides the Mugshot Bot branding in the bottom right.',
+        'type' => 'checkbox',
       ],
     ];
   }
