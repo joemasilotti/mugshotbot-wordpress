@@ -23,7 +23,7 @@ class Mugshot {
       'pattern' => $settings['pattern'],
     );
 
-    if (isset($settings['image'])) {
+    if (isset($settings['image']) && $settings['theme'] == 'two_up') {
       $options['image'] = $settings['image'];
     }
 
