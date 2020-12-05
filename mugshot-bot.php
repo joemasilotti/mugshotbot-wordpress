@@ -5,7 +5,7 @@
  * Description: Automated link preview images for every page on your site.
  * Author: Joe Masilotti
  * Author URI: https://masilotti.com
- * Version: 0.1
+ * Version: 0.2
  * Text Domain: 'mugshot-bot'
  * License: GPLv2
  * License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
