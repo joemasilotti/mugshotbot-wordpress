@@ -61,14 +61,14 @@ class Mugshot_Bot_Plugin {
 
   public function default_settings() {
     if (!get_option('mugshot_bot_settings')) {
-      $mugshot_bot_settings = [
+      $settings = [
         'theme' => 'default',
         'mode' => 'light',
         'color' => 'red',
         'pattern' => 'none',
       ];
 
-      update_option('mugshot_bot_settings', $mugshot_bot_settings);
+      update_option('mugshot_bot_settings', $settings);
     }
   }
 
@@ -78,7 +78,7 @@ class Mugshot_Bot_Plugin {
       update_option('mugshot_bot_settings', $_POST['mugshot_bot_settings']);
     }
 
-    $mugshot_bot_settings = get_option('mugshot_bot_settings');
+    $settings = get_option('mugshot_bot_settings');
 
     include 'inc/settings.php';
   }

@@ -1,4 +1,4 @@
-<?php if (!isset($setting['only_theme']) || $setting['only_theme'] == $mugshot_bot_settings['theme']) : ?>
+<?php if (!isset($setting['only_theme']) || $setting['only_theme'] == $settings['theme']) : ?>
   <tr>
     <th scope="row">
       <span class="block mb-2"><?php echo $setting['label']; ?></span>
@@ -20,14 +20,14 @@
             <?php $value = strtolower(str_replace(' ', '_', $v)); ?>
             <option
               value="<?php echo $value ?>"
-              <?php echo($mugshot_bot_settings[$index] == $value ? ' selected' : ''); ?>
+              <?php echo($settings[$index] == $value ? ' selected' : ''); ?>
             >
               <?php echo($v); ?>
             </option>
           <?php endforeach; ?>
         </select>
       <?php elseif ($setting['type'] == 'checkbox') : ?>
-        <?php $checked = isset($mugshot_bot_settings[$index]); ?>
+        <?php $checked = isset($settings[$index]); ?>
         <input
           id="mugshot_bot_settings[<?php echo $index; ?>]" <?php echo $checked ? 'checked' : ''; ?>
           name="mugshot_bot_settings[<?php echo $index; ?>]"
@@ -43,7 +43,7 @@
           id="mugshot_bot_settings[<?php echo $index; ?>]"
           name="mugshot_bot_settings[<?php echo $index; ?>]"
           type="text"
-          value="<?php echo(isset($mugshot_bot_settings[$index]) ? $mugshot_bot_settings[$index] : ''); ?>"
+          value="<?php echo(isset($settings[$index]) ? $settings[$index] : ''); ?>"
         >
       <?php endif; ?>
       <p class="description"><?php echo $setting['description']; ?>
