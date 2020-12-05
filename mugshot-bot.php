@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Mugshot Bot
  * Plugin URI: https://mugshotbot.com
- * Description: Automated link previews for WordPress sites.
+ * Description: Automated link preview images for every page on your site.
  * Author: Joe Masilotti
  * Author URI: https://masilotti.com
  * Version: 0.1
