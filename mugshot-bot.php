@@ -56,7 +56,7 @@ class Mugshot_Bot_Plugin {
   }
 
   public function default_settings() {
-    if (! get_option('mugshot_bot_settings')) {
+    if (!get_option('mugshot_bot_settings')) {
       $mugshot_bot_settings = [
         'theme' => 'default',
         'mode' => 'light',
