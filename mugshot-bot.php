@@ -74,13 +74,22 @@ class Mugshot_Bot_Plugin {
 
   public function settings() {
     if ($_POST) {
-      check_admin_referer('mugshot_bot_settings');
-      update_option('mugshot_bot_settings', $_POST['mugshot_bot_settings']);
+      $settings = $this->clean_post();
+      update_option('mugshot_bot_settings', $settings);
     }
 
     $settings = get_option('mugshot_bot_settings');
 
     include 'inc/settings.php';
+  }
+
+  private function clean_post() {
+    $settings = get_option('mugshot_bot_settings');
+    $new_settings = $_POST['mugshot_bot_settings'];
+    if ($settings['color'] != $new_settings['color']) {
+      $new_settings['custom_color'] = null;
+    }
+    return $new_settings;
   }
 
   public function head() {
@@ -168,6 +177,12 @@ class Mugshot_Bot_Plugin {
           'Topography',
           'Bank Note',
         ],
+      ],
+      'custom_color' => [
+        'description' => 'Something about colors!',
+        'label' => 'Custom color',
+        'pro' => true,
+        'type' => 'text',
       ],
       'hide_watermark' => [
         'description' => 'Hides the Mugshot Bot branding in the bottom right.',

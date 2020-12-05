@@ -19,7 +19,7 @@ class Mugshot {
     $options = array(
       'theme' => $settings['theme'],
       'mode' => $settings['mode'],
-      'color' => $settings['color'],
+      'color' => $settings['custom_color'] ?? $settings['color'],
       'pattern' => $settings['pattern'],
     );
 
