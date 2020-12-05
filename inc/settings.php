@@ -35,21 +35,23 @@
           <?php foreach ($free as $index => $setting) : ?>
             <?php include 'setting.php' ?>
           <?php endforeach; ?>
-        </table>
+        </tbody>
+      </table>
 
-        <hr />
+      <hr />
 
-        <h2>Pro features</h2>
-        <p class="description max-w-lg">
-          <b>
-            These features only work with a paid subscription to Mugshot Bot.
-          </b>
-          <a href="https://mugshotbot.com/pricing" target="_blank">Sign up for an account</a>
-          then
-          <a href="https://mugshotbot.com/customize" target="_blank">customize</a>
-          one image for this website to enable Pro features.
-        </p>
-        <table class="form-table">
+      <h2>Pro features</h2>
+      <p class="description max-w-lg">
+        <b>
+          These features only work with a paid subscription to Mugshot Bot.
+        </b>
+        <a href="https://mugshotbot.com/pricing" target="_blank">Sign up for an account</a>
+        then
+        <a href="https://mugshotbot.com/customize" target="_blank">customize</a>
+        one image for this website to enable Pro features.
+      </p>
+      <table class="form-table">
+        <tbody>
           <?php foreach ($pro as $index => $setting) : ?>
             <?php include 'setting.php' ?>
           <?php endforeach; ?>
